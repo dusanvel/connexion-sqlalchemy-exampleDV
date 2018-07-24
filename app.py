@@ -46,7 +46,7 @@ def delete_pet(pet_id):
         return NoContent, 404
 
 logging.basicConfig(level=logging.INFO)
-db_session = orm.init_db('sqlite:///:memory:')
+db_session = orm.init_db('sqlite:///dv_pet.db')
 app = connexion.App(__name__)
 app.add_api('swagger.yaml')
 # set the WSGI application callable to allow using uWSGI:
