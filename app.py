@@ -2,6 +2,7 @@
 import connexion
 import datetime
 import logging
+import json
 
 from connexion import NoContent
 
@@ -9,12 +10,25 @@ import orm
 
 
 db_session = None
+def post_greeting(name: str) -> str:
+    return 'Hello {name}'.format(name=name)
+def post_greeting1():
+    hell = {
+        "name":"Dusan",
+        "author":"yes"
+    }
+    print(hell)
+    he = json.dumps(hell)
+    print(he)
+
+    return he
 
 def get_pets(limit, animal_type=None):
     q = db_session.query(orm.Pet)
+    # w=db_session.query(orm.Pet)
     if animal_type:
         q = q.filter(orm.Pet.animal_type == animal_type)
-    return [ p.dump() for p in q][:limit]
+    return [p.dump() for p in q][:limit]
 
 def get_pet(pet_id):
     pet = db_session.query(orm.Pet).filter(orm.Pet.id == pet_id).one_or_none()
@@ -59,4 +73,4 @@ def shutdown_session(exception=None):
 
 
 if __name__ == '__main__':
-    app.run(port=8080)
+    app.run(port=8090)

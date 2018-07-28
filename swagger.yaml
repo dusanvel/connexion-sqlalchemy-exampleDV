@@ -11,6 +11,43 @@ security:
   # (only active if the TOKENINFO_URL environment variable is set)
   - oauth2: [uid]
 paths:
+  /g11_cmd:
+    get:
+      summary: Generate greeting
+      tags: [G1_Commands]
+      operationId: app.post_greeting1
+
+
+      responses:
+        200:
+          description: greeting response
+          schema:
+            type: object
+          examples:
+            "text/plain": "Hello John"
+
+      description: Generates a greeting message.
+  /greeting/{name}:
+    get:
+      summary: Generate greeting
+      tags: [G1_Commands]
+
+      description: Generates a greeting message.
+      operationId: app.post_greeting
+
+      responses:
+        200:
+          description: greeting response
+          schema:
+            type: string
+          examples:
+            "text/plain": "Hello John"
+      parameters:
+        - name: name
+          in: path
+          description: Name of the person to greet.
+          required: true
+          type: string
   /pets:
     get:
       tags: [Pets]
